@@ -1,19 +1,20 @@
 version: '3'
+name: game1  # プロジェクト名を明示的に指定
 
 services:
   builder:
     build:
-      context: .
-      dockerfile: Dockerfile.build
+      context: ../..
+      dockerfile: docker/builder/Dockerfile
     volumes:
-      - ./src:/app/src
-      - ./public:/app/public
+      - ../../src:/app/src
+      - ../../public:/app/public
       - dist_volume:/app/dist
 
   web:
     build:
-      context: .
-      dockerfile: Dockerfile.serve
+      context: ../..
+      dockerfile: docker/web/Dockerfile
     ports:
       - "8080:80"
     volumes:

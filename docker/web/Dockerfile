@@ -1,7 +1,7 @@
 FROM nginx:alpine
 
 # Nginxの設定
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY docker/web/nginx.conf /etc/nginx/conf.d/default.conf
 
 # ヘルスチェック用ディレクトリの作成とファイルの配置
 RUN mkdir -p /etc/nginx/healthcheck
