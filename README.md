@@ -1,46 +1,76 @@
-# ブランチ戦略
+# developブランチの運用ルール
 
-本プロジェクトは以下のブランチ運用ルールに従います。
+本プロジェクトでは、開発の中心となる **developブランチ** を軸に運用を行います。
 
-## ブランチ構成
+---
 
-- **main**  
-  本番環境リリース用ブランチ。動作確認済みでテストを通過したコードのみをマージする。
+## Issueの活用
 
-- **develop**  
-  開発用ブランチ。新機能や修正はまずここにマージされる。
+### 粒度
+- 基本は **半日〜1日程度で完了できるタスク単位** とする
+- 大きすぎるタスクは細分化し、逆に細かすぎる修正はコミットだけで済ませる
 
-- **featureブランチ**  
-  機能単位で `develop` から派生し、開発が完了したら `develop` にマージする。  
-  命名規則： `f-develop_<機能名>` 例）`f-develop_function1`
+### ラベル（タグ）の種類
+- `feature` : 新機能
+- `bug` : バグ修正
+- `refactor` : リファクタリング
+- `chore` : 環境構築・設定
+- `documentation` : ドキュメント改善
+- `priority: high` : 優先度が高いタスク
 
-## 運用ルール
+### 運用サイクル
+1. 思いついたタスク・改善点はすべてIssueとして起票する
+2. 優先度の高いIssueから `feature` ブランチを作成する  
+   - ブランチ名には **Issue番号を含める**  
+   例: `f-develop_#12-add-score-ui`
+3. PRを作成し、レビューや自己チェックを行う
+4. レビュー通過後、`develop` にマージすると同時にIssueをクローズする
 
-1. 開発は `develop` から新しい `feature` ブランチを作成して進める。
-2. `feature` ブランチで開発完了後、`develop` にマージする。
-3. `develop` で動作確認およびテストを行い、問題がなければ `main` にマージする。
-4. `main` には直接コミット・マージを行わない。
+---
 
-## イメージ図
+## mainブランチへのマージ条件
+- ある程度の機能がまとまったタイミング
+- 対応したIssueが十分に片付いていること
+- 動作確認とテストが完了していること
 
-```text
-main
-  ↑
-  └── develop
-        ├── f-develop_function1
-        └── f-develop_function2
-```
+---
 
-## PR フロー（Pull Request 流れ）
+## ブランチ戦略
 
 ```mermaid
-flowchart TD
-    A[feature ブランチ作成] --> B[開発 & コミット]
-    B --> C[develop ブランチへ PR 作成]
-    C --> D[レビュー & マージ]
-    D --> E[develop でテスト・動作確認]
-    E -->|問題なし| F[main ブランチへ PR 作成]
-    F --> G[レビュー & マージ]
-    G --> H[本番リリース]
-    E -->|バグあり| I[修正して再度 PR]
+%%{init: {'theme':'dark','themeVariables': {
+  'background':'#0b0f14',
+  'primaryColor':'#111827',
+  'primaryBorderColor':'#374151',
+  'primaryTextColor':'#e5e7eb',
+  'secondaryColor':'#0f172a',
+  'secondaryBorderColor':'#475569',
+  'tertiaryColor':'#111827',
+  'tertiaryTextColor':'#cbd5e1',
+  'lineColor':'#475569',
+  'textColor':'#e5e7eb',
+  'git0':'#60a5fa','git1':'#f472b6','git2':'#34d399','git3':'#fbbf24'
+}}}%%
+
+%% ブランチ戦略（gitGraph + Dark Theme）
+gitGraph
+   commit id: "init"
+   branch develop
+   commit id: "setup"
+
+   %% feature #12
+   branch "f-#12-add-score-ui"
+   commit id: "ui-work"
+   checkout develop
+   merge "f-#12-add-score-ui"
+
+   %% feature #15
+   branch "f-#15-enemy-ai"
+   commit id: "ai-work"
+   checkout develop
+   merge "f-#15-enemy-ai"
+
+   %% リリース
+   checkout main
+   merge develop tag: "release"
 ```
