@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>炎避けゲーム</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="game-container">
+        <div class="hud">
+            <div class="hp-bar">
+                <div class="hp-fill"></div>
+            </div>
+        </div>
+        <div id="game-area">
+            <div id="player"></div>
+        </div>
+        <div id="game-over" class="hidden">
+            <h2>ゲームオーバー</h2>
+            <button onclick="restartGame()">もう一度プレイ</button>
+        </div>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
