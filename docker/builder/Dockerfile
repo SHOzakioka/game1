@@ -1,4 +1,4 @@
-FROM node:18-alpine as builder
+FROM node:18-alpine
 
 WORKDIR /app
 
@@ -6,16 +6,13 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 
-# ソースコードのコピーとビルド
+# ソースコードのコピー
 COPY src/ ./src/
 COPY public/ ./public/
 
-# ビルドディレクトリの作成とファイルのコピー
-RUN mkdir -p dist && \
-    cp -r src/* dist/ && \
-    cp -r public/* dist/
+# ビルド実行（distディレクトリにファイルをコピー）
+RUN npm run build
 
-# ビルド成果物を含む軽量なイメージを作成
-FROM node:18-alpine
-WORKDIR /app
-COPY --from=builder /app/dist ./dist
+# ビルド成果物を/usr/share/nginx/htmlに直接コピー
+RUN mkdir -p /usr/share/nginx/html
+RUN cp -r dist/* /usr/share/nginx/html/

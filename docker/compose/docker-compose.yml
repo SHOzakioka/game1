@@ -1,5 +1,5 @@
 version: '3'
-name: game1  # プロジェクト名を明示的に指定
+name: game1
 
 services:
   builder:
@@ -7,9 +7,7 @@ services:
       context: ../..
       dockerfile: docker/builder/Dockerfile
     volumes:
-      - ../../src:/app/src
-      - ../../public:/app/public
-      - dist_volume:/app/dist
+      - nginx_html:/usr/share/nginx/html
 
   web:
     build:
@@ -18,7 +16,7 @@ services:
     ports:
       - "8080:80"
     volumes:
-      - dist_volume:/usr/share/nginx/html
+      - nginx_html:/usr/share/nginx/html
     depends_on:
       - builder
     healthcheck:
@@ -28,4 +26,4 @@ services:
       retries: 3
 
 volumes:
-  dist_volume:
+  nginx_html:

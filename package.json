@@ -1,16 +1,20 @@
 {
-  "name": "game1",
+  "name": "flame-escaper-grandma",
   "version": "1.0.0",
-  "main": "game.js",
+  "description": "A game where grandma escapes from falling flames",
+  "main": "src/game.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "live-server"
+    "start": "http-server",
+    "build": "mkdir -p dist && cp -r src/* dist/ && cp -r public/* dist/"
   },
-  "keywords": [],
+  "keywords": [
+    "game",
+    "html5",
+    "javascript"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
-  "devDependencies": {
-    "live-server": "^1.2.2"
+  "dependencies": {
+    "http-server": "^14.1.1"
   }
 }
