@@ -6,12 +6,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // PLAYボタンクリック時の処理
     playButton.addEventListener('click', () => {
+        console.log('Play button clicked'); // デバッグ用
         topScreen.classList.add('hidden');
         playScreen.classList.remove('hidden');
-        // ゲーム開始処理を呼び出し
-        if (typeof startGame === 'function') {
-            startGame();
-        }
+        // グローバル関数としてstartGameを呼び出し
+        window.startGame();
     });
 
     // LOADボタンクリック時の処理

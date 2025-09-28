@@ -10,9 +10,11 @@ RUN npm install
 COPY src/ ./src/
 COPY public/ ./public/
 
-# ビルド実行（distディレクトリにファイルをコピー）
-RUN npm run build
+# distディレクトリを作成し、ファイルをコピー
+RUN mkdir -p dist && \
+    cp -r src/* dist/ && \
+    cp -r public/* dist/
 
-# ビルド成果物を/usr/share/nginx/htmlに直接コピー
-RUN mkdir -p /usr/share/nginx/html
-RUN cp -r dist/* /usr/share/nginx/html/
+# 共有ボリュームにコピー
+VOLUME /dist
+CMD ["cp", "-r", "dist/.", "/dist/"]

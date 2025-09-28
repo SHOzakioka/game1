@@ -1,7 +1,10 @@
-// 既存のgame.jsの内容をここに移動
 // ゲーム関連の変数
 let playerHealth = 100;
 let gameLoop;
+
+// グローバルに関数を公開
+window.startGame = startGame;
+window.restartGame = restartGame;
 
 // プレイヤーの移動処理
 function movePlayer(event) {
@@ -86,6 +89,8 @@ function restartGame() {
 
 // ゲーム開始
 function startGame() {
+    console.log('Game starting...'); // デバッグ用
+
     // 既存のイベントリスナーとインターバルをクリア
     document.removeEventListener('keydown', movePlayer);
     if (gameLoop) clearInterval(gameLoop);
@@ -100,4 +105,6 @@ function startGame() {
 
     // 炎の生成を開始
     gameLoop = setInterval(createFire, 1000);
+    
+    console.log('Game started!'); // デバッグ用
 }

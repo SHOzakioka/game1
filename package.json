@@ -2,10 +2,11 @@
   "name": "flame-escaper-grandma",
   "version": "1.0.0",
   "description": "A game where grandma escapes from falling flames",
-  "main": "src/game.js",
+  "type": "module",
   "scripts": {
-    "start": "http-server",
-    "build": "mkdir -p dist && cp -r src/* dist/ && cp -r public/* dist/"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "keywords": [
     "game",
@@ -14,7 +15,8 @@
   ],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "http-server": "^14.1.1"
+  "dependencies": {},
+  "devDependencies": {
+    "vite": "^5.0.0"
   }
 }

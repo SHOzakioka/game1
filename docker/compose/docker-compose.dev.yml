@@ -1,0 +1,22 @@
+version: '3'
+name: game1
+
+services:
+  dev:
+    build:
+      context: ../..
+      dockerfile: docker/dev/Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ../../src:/app/src
+      - ../../public:/app/public
+      - ../../vite.config.js:/app/vite.config.js
+    environment:
+      - NODE_ENV=development
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "http://localhost:3000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
