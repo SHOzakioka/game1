@@ -1,16 +1,22 @@
 {
-  "name": "game1",
+  "name": "flame-escaper-grandma",
   "version": "1.0.0",
-  "main": "game.js",
+  "description": "A game where grandma escapes from falling flames",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "live-server"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "keywords": [],
+  "keywords": [
+    "game",
+    "html5",
+    "javascript"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
+  "dependencies": {},
   "devDependencies": {
-    "live-server": "^1.2.2"
+    "vite": "^5.0.0"
   }
 }
