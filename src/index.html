@@ -3,43 +3,77 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flame Escaper Grandma</title>
+    <title>逆スペースインベーダー - 地球侵略作戦</title>
     <link rel="stylesheet" href="styles/common.css">
-    <link rel="stylesheet" href="styles/top.css">
-    <link rel="stylesheet" href="styles/play.css">
+    <link rel="stylesheet" href="styles/invader.css">
 </head>
-<body>
-    <!-- TOP画面 -->
-    <div id="top-screen">
-        <div class="title-container">
-            <h1 class="main-title">Flame Escaper</h1>
-            <h2 class="sub-title">Grandma</h2>
-        </div>
-        <div class="button-container">
-            <button id="play-button">PLAY</button>
-            <button id="load-button">LOAD</button>
-        </div>
-    </div>
+<body style="background: #000; display: flex; justify-content: center; align-items: center; min-height: 100vh; margin: 0; flex-direction: column; gap: 20px;">
+    
+    <h1 style="color: #00ffff; text-shadow: 0 0 20px rgba(0, 255, 255, 1); font-family: 'Courier New', monospace; margin: 0;">
+        🛸 逆スペースインベーダー 🌍
+    </h1>
+    <p style="color: #fff; font-family: 'Courier New', monospace; margin: 0 0 20px 0;">
+        あなたはインベーダー軍です。地球を侵略せよ！
+    </p>
 
-    <!-- ゲーム画面 -->
-    <div id="play-screen" class="hidden">
-        <div class="game-container">
-            <div class="hud">
-                <div class="hp-bar">
-                    <div class="hp-fill"></div>
+    <div class="game-container">
+        <!-- HUD（スコア・レベル表示） -->
+        <div class="hud">
+            <div class="hud-item">
+                <span class="hud-label">スコア:</span>
+                <span id="score-value">0</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">レベル:</span>
+                <span id="level-value">1</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">インベーダー:</span>
+                <span id="invaders-value">36/36</span>
+            </div>
+            <div class="hud-item">
+                <span class="hud-label">敵砲台:</span>
+                <span id="enemies-value">3/3</span>
+            </div>
+        </div>
+
+        <!-- ゲームエリア -->
+        <div id="game-area"></div>
+
+        <!-- ゲームオーバー画面 -->
+        <div id="game-over" class="hidden">
+            <div id="game-over-message">ゲームオーバー</div>
+            <div style="margin-top: 15px;">
+                <div style="color: #ffff00; font-size: 18px; margin-bottom: 10px;">
+                    最終スコア: <span id="final-score" style="font-size: 24px;">0</span>
                 </div>
             </div>
-            <div id="game-area">
-                <div id="player"></div>
-            </div>
-            <div id="game-over" class="hidden">
-                <h2>ゲームオーバー</h2>
-                <button onclick="restartGame()">もう一度プレイ</button>
-            </div>
+            <button onclick="restartInvaderGame()">もう一度プレイ</button>
         </div>
     </div>
 
-    <script type="module" src="screens/top.js"></script>
-    <script type="module" src="screens/play.js"></script>
+    <div style="color: #888; font-family: 'Courier New', monospace; font-size: 14px; text-align: center; max-width: 800px;">
+        <p style="margin: 5px 0;">
+            📋 <strong>ルール:</strong> インベーダーは自動で横移動します。最下列が敵を狙って攻撃！
+        </p>
+        <p style="margin: 5px 0;">
+            🎯 <strong>勝利条件:</strong> 全ての敵砲台を破壊するか、地面に到達すること
+        </p>
+        <p style="margin: 5px 0;">
+            💀 <strong>敗北条件:</strong> 全てのインベーダーが撃墜されること
+        </p>
+    </div>
+
+    <script type="module" src="screens/play_invader.js"></script>
+    <script type="module">
+        // ページ読み込み時に自動でゲーム開始
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                if (typeof window.startInvaderGame === 'function') {
+                    window.startInvaderGame();
+                }
+            }, 100);
+        });
+    </script>
 </body>
 </html>
